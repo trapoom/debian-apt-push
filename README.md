@@ -5,22 +5,23 @@
 [![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-red.svg)]()
 [![Release](https://img.shields.io/github/v/release/trapoom/debian-apt-push)]()
 
-A modern system monitoring utility written in Rust.
+A lightweight system monitoring utility written in Rust.
 
 This repository hosts the signed APT repository, source code, and release artifacts for **moniter**.
 
-`moniter` is a lightweight Linux monitoring tool designed for Debian and Ubuntu systems.
+`moniter` is a Linux monitoring tool designed to display real-time CPU usage, RAM usage, and battery information on Debian and Ubuntu systems.
 
 ---
 
 # Features
 
 - Written in Rust
-- CPU monitoring
-- Memory monitoring
-- Disk usage monitoring
-- Network monitoring
-- Temperature monitoring
+- Real-time CPU usage monitoring
+- RAM usage monitoring
+- Battery status monitoring
+- Battery percentage display
+- Battery charging state detection
+- Lightweight resource usage
 - Native Linux support
 - Debian package distribution
 - Signed APT repository
