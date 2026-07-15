@@ -62,7 +62,7 @@ arm64
 ### Step 1 - Add repository
 
 ```bash
-curl -fsSL https://trapoom.github.io/debian-apt-push/setup.sh | sudo bash
+curl -fsSL hhttps://github.com/trapoom/moniter-sys/setup.sh | sudo bash
 ```
 
 The installer will:
@@ -101,7 +101,7 @@ sudo apt install moniter
 APT Repository:
 
 ```
-https://trapoom.github.io/debian-apt-push/
+https://github.com/trapoom/moniter-sys/
 ```
 
 Distribution:
@@ -202,7 +202,7 @@ curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ## Clone
 
 ```bash
-git clone https://github.com/trapoom/debian-apt-push.git
+git clone https://github.com/trapoom/moniter-sys/.git
 cd debian-apt-push
 ```
 
