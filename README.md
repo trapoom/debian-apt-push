@@ -1,114 +1,198 @@
 # moniter
 
-A secure APT repository for Debian and Ubuntu.
+A modern system monitoring utility written in **Rust** for Debian and Ubuntu.
 
-`moniter` is distributed through a signed APT repository, allowing packages to be installed and updated using the standard `apt` package manager.
+`moniter` is built using the standard Rust toolchain and can be installed either by compiling from source or through the official signed APT repository.
+
+---
 
 ## Features
 
-* Secure GPG-signed repository
-* Easy one-line installation
-* Compatible with Debian and Ubuntu
-* Standard APT package management
-* Automatic updates through `apt`
-
----
-
-## Quick Start
-
-### 1. Configure the repository
-
-```bash
-curl -fsSL https://trapoom.github.io/debian-apt-push/setup.sh | sudo bash
-```
-
-### 2. Install moniter
-
-```bash
-sudo apt install moniter
-```
-
----
-
-## Updating
-
-Update package information:
-
-```bash
-sudo apt update
-```
-
-Upgrade installed packages:
-
-```bash
-sudo apt upgrade
-```
-
----
-
-## Repository Information
-
-Repository URL
-
-```
-https://trapoom.github.io/debian-apt-push
-```
-
-Distribution
-
-```
-stable
-```
-
-Component
-
-```
-main
-```
+* Written in Rust
+* Standard Cargo project
+* Secure APT repository
+* Debian and Ubuntu support
+* GPG-signed package distribution
+* Easy installation and updates
 
 ---
 
 ## Requirements
 
-* Debian 11 or later
-* Ubuntu 22.04 or later
-* Internet connection
-* `sudo` privileges
+### Build from Source
+
+* Rust (latest stable)
+* Cargo
+* Git
+
+Install Rust using rustup:
+
+```bash
+curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
+```
+
+Verify the installation:
+
+```bash
+rustc --version
+cargo --version
+```
 
 ---
 
-## Security
+# Clone the Repository
 
-Packages are distributed through a GPG-signed repository.
+```bash
+git clone https://github.com/trapoom/moniter.git
+cd moniter
+```
+
+---
+
+# Build
+
+Debug build:
+
+```bash
+cargo build
+```
+
+The binary will be generated at:
+
+```text
+target/debug/moniter
+```
+
+Release build:
+
+```bash
+cargo build --release
+```
+
+The optimized binary will be generated at:
+
+```text
+target/release/moniter
+```
+
+---
+
+# Run
+
+Using Cargo:
+
+```bash
+cargo run
+```
+
+Using the compiled binary:
+
+```bash
+./target/release/moniter
+```
+
+---
+
+# Testing
+
+Run all tests:
+
+```bash
+cargo test
+```
+
+Run formatting check:
+
+```bash
+cargo fmt --check
+```
+
+Run Clippy:
+
+```bash
+cargo clippy --all-targets --all-features -- -D warnings
+```
+
+---
+
+# Install via APT Repository
+
+Configure the repository:
+
+```bash
+curl -fsSL https://trapoom.github.io/debian-apt-push/setup.sh | sudo bash
+```
+
+Install:
+
+```bash
+sudo apt install moniter
+```
+
+Update:
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+---
+
+# Project Structure
+
+```text
+.
+├── src/
+│   ├── main.rs
+│   └── ...
+├── Cargo.toml
+├── Cargo.lock
+├── LICENSE
+└── README.md
+```
+
+---
+
+# Development
+
+This project follows the standard Cargo workflow.
+
+Common commands:
+
+```bash
+cargo build
+cargo build --release
+cargo run
+cargo test
+cargo fmt
+cargo clippy
+cargo clean
+```
+
+---
+
+# Security
+
+The Debian package repository is protected using a dedicated GPG signing key.
 
 The installation script automatically:
 
-* Downloads the repository signing key
+* Downloads the repository key
 * Installs the keyring
 * Configures the APT source
 * Updates the package index
 
 ---
 
-## Uninstall Repository
+# License
 
-Remove the repository configuration:
+This project is licensed under the MIT License.
 
-```bash
-sudo rm -f /etc/apt/sources.list.d/traphumi.list
-sudo rm -f /usr/share/keyrings/traphumi-archive-keyring.gpg
-sudo apt update
-```
+See the LICENSE file for details.
 
 ---
 
-## License
-
-See the LICENSE file for licensing information.
-
----
-
-## Author
+# Author
 
 **trapoom**
 
