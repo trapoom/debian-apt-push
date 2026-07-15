@@ -1,0 +1,13 @@
+Package: moniter
+Version: 1.0.0
+Architecture: amd64
+Maintainer: traphumi trapoomyoyojojo@gmail.com
+Filename: pool/main/moniter-pkg.deb
+Size: 221724
+MD5sum: 6f28e1378617c6af390ae2a06a517a12
+SHA1: 35efcb7bed0cb6b95f45769b12c41d14d6fb5b56
+SHA256: a41c569acae7e4337ab7f55693968ccb2bf7419ac401ac99b69e44dccae28a50
+Section: utils
+Priority: optional
+Description: A simple monitoring tool by traphumi.
+
