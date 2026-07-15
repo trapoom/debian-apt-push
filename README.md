@@ -130,7 +130,7 @@ Fingerprint:
 Verify the key:
 
 ```bash
-gpg --show-keys traphumi-archive-keyring.gpg -----BEGIN PGP PUBLIC KEY BLOCK-----
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGpXwQUBEACv3D+U6avVJsxlewegiScGwZUQWE6EZZdh28bTl/AR1g7o14Mt
 nVS7Afjc6XoktoOO1QdkfYD9F5k3x1DFwTksuiTkgZo1hL855yyHOlsKoeSNl9Xq
