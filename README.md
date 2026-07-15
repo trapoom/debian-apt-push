@@ -1,66 +1,172 @@
 # moniter
 
-A modern system monitoring utility written in **Rust** for Debian and Ubuntu.
+[![Rust](https://img.shields.io/badge/Rust-stable-orange.svg)](https://www.rust-lang.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-red.svg)]()
+[![Release](https://img.shields.io/github/v/release/trapoom/debian-apt-push)]()
 
-`moniter` is built using the standard Rust toolchain and can be installed either by compiling from source or through the official signed APT repository.
+A modern system monitoring utility written in Rust.
+
+This repository hosts the signed APT repository, source code, and release artifacts for **moniter**.
+
+`moniter` is a lightweight Linux monitoring tool designed for Debian and Ubuntu systems.
+
+---
+
+# Features
+
+- Written in Rust
+- CPU monitoring
+- Memory monitoring
+- Disk usage monitoring
+- Network monitoring
+- Temperature monitoring
+- Native Linux support
+- Debian package distribution
+- Signed APT repository
 
 ---
 
-## Features
+# Supported Platforms
 
-* Written in Rust
-* Standard Cargo project
-* Secure APT repository
-* Debian and Ubuntu support
-* GPG-signed package distribution
-* Easy installation and updates
+## Operating Systems
+
+### Debian
+
+- Debian 12 Bookworm
+- Debian 13 Trixie
+
+### Ubuntu
+
+- Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 
 ---
+
+## Architectures
+
+Supported architectures:
+
+```
+amd64
+arm64
+```
+
+---
+
+# Installation
+
+## Install from APT Repository
+
+### Step 1 - Add repository
+
+```bash
+curl -fsSL https://trapoom.github.io/debian-apt-push/setup.sh | sudo bash
+```
+
+The installer will:
+
+- Download repository signing key
+- Install GPG keyring:
+
+```
+/usr/share/keyrings/traphumi-archive-keyring.gpg
+```
+
+- Create APT source:
+
+```
+/etc/apt/sources.list.d/traphumi.list
+```
+
+- Run:
+
+```bash
+apt update
+```
+
+---
+
+### Step 2 - Install moniter
+
+```bash
+sudo apt install moniter
+```
+
+---
+
+# Repository Information
+
+APT Repository:
+
+```
+https://trapoom.github.io/debian-apt-push/
+```
+
+Distribution:
+
+```
+stable
+```
+
+Component:
+
+```
+main
+```
+
+---
+
+# Repository Signing Key
+
+The repository packages are signed using GPG.
+
+Fingerprint:
+
+```
+XXXX XXXX XXXX XXXX XXXX
+XXXX XXXX XXXX XXXX XXXX
+```
+
+Verify the key:
+
+```bash
+gpg --show-keys traphumi-archive-keyring.gpg
+```
+
+---
+
+# Build From Source
 
 ## Requirements
 
-### Build from Source
+- Rust stable
+- Cargo
+- Git
 
-* Rust (latest stable)
-* Cargo
-* Git
-
-Install Rust using rustup:
+Install Rust:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
-Verify the installation:
+---
+
+## Clone
 
 ```bash
-rustc --version
-cargo --version
+git clone https://github.com/trapoom/debian-apt-push.git
+cd debian-apt-push
 ```
 
 ---
 
-# Clone the Repository
+## Build
 
-```bash
-git clone https://github.com/trapoom/moniter.git
-cd moniter
-```
-
----
-
-# Build
-
-Debug build:
+Development build:
 
 ```bash
 cargo build
-```
-
-The binary will be generated at:
-
-```text
-target/debug/moniter
 ```
 
 Release build:
@@ -69,23 +175,13 @@ Release build:
 cargo build --release
 ```
 
-The optimized binary will be generated at:
+Binary:
 
-```text
+```
 target/release/moniter
 ```
 
----
-
-# Run
-
-Using Cargo:
-
-```bash
-cargo run
-```
-
-Using the compiled binary:
+Run:
 
 ```bash
 ./target/release/moniter
@@ -93,21 +189,105 @@ Using the compiled binary:
 
 ---
 
-# Testing
+# Example Output
 
-Run all tests:
+Example:
+
+```
+System Monitor
+
+CPU        7%
+Memory     1.3G / 8G
+Disk       41%
+Network    13 MB/s
+Temperature 42 C
+```
+
+---
+
+# Project Structure
+
+```
+.
+├── src/
+│   ├── main.rs
+│   └── modules/
+│
+├── Cargo.toml
+├── Cargo.lock
+├── debian/
+│
+├── setup.sh
+├── LICENSE
+├── README.md
+└── CHANGELOG.md
+```
+
+---
+
+# Configuration
+
+Currently no configuration file is required.
+
+Future versions may support:
+
+```
+~/.config/moniter/config.toml
+```
+
+---
+
+# Package Management
+
+Update repository information:
+
+```bash
+sudo apt update
+```
+
+Upgrade:
+
+```bash
+sudo apt upgrade
+```
+
+---
+
+# Uninstall
+
+Remove the application:
+
+```bash
+sudo apt remove moniter
+```
+
+Remove repository:
+
+```bash
+sudo rm /etc/apt/sources.list.d/traphumi.list
+sudo rm /usr/share/keyrings/traphumi-archive-keyring.gpg
+sudo apt update
+```
+
+---
+
+# Development
+
+Before submitting changes, run:
+
+Format:
+
+```bash
+cargo fmt
+```
+
+Test:
 
 ```bash
 cargo test
 ```
 
-Run formatting check:
-
-```bash
-cargo fmt --check
-```
-
-Run Clippy:
+Lint:
 
 ```bash
 cargo clippy --all-targets --all-features -- -D warnings
@@ -115,72 +295,59 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 ---
 
-# Install via APT Repository
+# Contributing
 
-Configure the repository:
+Pull requests are welcome.
 
-```bash
-curl -fsSL https://trapoom.github.io/debian-apt-push/setup.sh | sudo bash
-```
-
-Install:
+Before submitting:
 
 ```bash
-sudo apt install moniter
-```
-
-Update:
-
-```bash
-sudo apt update
-sudo apt upgrade
-```
-
----
-
-# Project Structure
-
-```text
-.
-├── src/
-│   ├── main.rs
-│   └── ...
-├── Cargo.toml
-├── Cargo.lock
-├── LICENSE
-└── README.md
-```
-
----
-
-# Development
-
-This project follows the standard Cargo workflow.
-
-Common commands:
-
-```bash
-cargo build
-cargo build --release
-cargo run
-cargo test
 cargo fmt
+cargo test
 cargo clippy
-cargo clean
 ```
+
+Please describe your changes clearly.
 
 ---
 
 # Security
 
-The Debian package repository is protected using a dedicated GPG signing key.
+If you discover a security vulnerability, please report it privately.
 
-The installation script automatically:
+Do not open a public issue containing sensitive information.
 
-* Downloads the repository key
-* Installs the keyring
-* Configures the APT source
-* Updates the package index
+Security reports can be submitted through GitHub Security Advisories.
+
+---
+
+# Roadmap
+
+Future plans:
+
+- ARM builds
+- Automatic update checker
+- Homebrew support
+- Snap package
+- Flatpak package
+- Configuration file support
+- More system metrics
+
+---
+
+# Changelog
+
+See:
+
+```
+CHANGELOG.md
+```
+
+Current release:
+
+```
+1.0.0
+```
 
 ---
 
@@ -188,12 +355,24 @@ The installation script automatically:
 
 This project is licensed under the MIT License.
 
-See the LICENSE file for details.
+See:
+
+```
+LICENSE
+```
+
+Cargo.toml:
+
+```toml
+license = "MIT"
+```
 
 ---
 
 # Author
 
-**trapoom**
+trapoom
 
-GitHub: https://github.com/trapoom
+GitHub:
+
+https://github.com/trapoom
