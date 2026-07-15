@@ -130,9 +130,7 @@ Fingerprint:
 Verify the key:
 
 ```bash
-gpg --show-keys traphumi-archive-keyring.gpg
-```
------BEGIN PGP PUBLIC KEY BLOCK-----
+gpg --show-keys traphumi-archive-keyring.gpg -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGpXwQUBEACv3D+U6avVJsxlewegiScGwZUQWE6EZZdh28bTl/AR1g7o14Mt
 nVS7Afjc6XoktoOO1QdkfYD9F5k3x1DFwTksuiTkgZo1hL855yyHOlsKoeSNl9Xq
@@ -183,8 +181,7 @@ I6UySn18AzhzNw6lu1s5bGpGf/cWj84gk5KS8EU2yJrIq/eMXCfS2NmSRnS1zgJ+
 6/DM/cVbg0evblTAEqpk426zfHnqdZIW4sPySFEIhC7aTooGD+MaTsmCwYZw5uY5
 =j7MY
 -----END PGP PUBLIC KEY BLOCK-----
----
-
+```
 # Build From Source
 
 ## Requirements
