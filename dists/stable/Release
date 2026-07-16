@@ -1,24 +1,24 @@
 Architectures: amd64
 Codename: stable
 Components: main
-Date: Wed, 15 Jul 2026 18:12:16 +0000
+Date: Thu, 16 Jul 2026 04:07:51 +0000
 Description: traphumi official package repository
 Label: traphumi-archive
 Origin: traphumi
 Suite: stable
 MD5Sum:
- c1ca27ce896b3e727e1698f84545afc1              198 Release
+ cce3fe22d8fffb9f0844f1e65984b14c              198 Release
  5d24c93fd21ebe778ed54314de518fae              395 main/binary-amd64/Packages
- 92e143b254e0de46e5330b0e530c399a              314 main/binary-amd64/Packages.gz
+ 816f128bfee98e26e9c93fb95d6005d7              314 main/binary-amd64/Packages.gz
 SHA1:
- d471c333fa8a4509706598d4ab3b7ee600eba143              198 Release
+ 54103cc29d6e7d70001ddea659814fe9847d84a9              198 Release
  9b4c44a541ff22a72f2f14ac0b2776b7edaa14b9              395 main/binary-amd64/Packages
- 163f0a1ff528d52139c4885f1dd7adc59fe9953e              314 main/binary-amd64/Packages.gz
+ d9c44f0d997dd0a94222a6644b65087990f9bf1b              314 main/binary-amd64/Packages.gz
 SHA256:
- c8d81617680c2ddf24831982743d94ef9d11ad2b8bb3837532550c5b6c7025fb              198 Release
+ db4a456481799e0dde0ec23cc31df12089e5cf8a98ea24238ed165ef0b1dc716              198 Release
  9e0596dfe61354c4e7593d72e40af35d6173949306f94a07cb94f7d256f1b8da              395 main/binary-amd64/Packages
- 5d65c9162cd314c02209dea9ecfa83253c65473dcad21312c34c813cb4c76d53              314 main/binary-amd64/Packages.gz
+ 326b6981da70cc84e799dc8d7bc2e3386d64de2ced5cc8662166b59b15c3efbb              314 main/binary-amd64/Packages.gz
 SHA512:
- e8eb1145a5e51230a46cd05e27caa1f1f0cda50887574b69c7bb2305ec59499e416c89a88defc251cc95f8449a1f718a971860d857f12be796d2373452b91332              198 Release
+ a951bda137b38c872c545522710ca5cb0e33f69c0e7481594e6432b79a1c832740bbab2cddc4c38c619c75e134c1729f98b5dba4b40289fb30702babe2393eae              198 Release
  ce5236d0651c207f5af316f53be1b842403d6c62e6468b3ea75af0ec6a0d00d001ce83a74d06ab964990b5347b56582c285a402c723339697b5947db1a82da95              395 main/binary-amd64/Packages
- 41c87a5b29bb2d6010800dc1079c1c695e850fd45d43282b1b0c3eeea4e2d301d07425206cfff2eb105a198d3eb178e1969bcdcad67e429e8ad64d4847479e2e              314 main/binary-amd64/Packages.gz
+ c488cbcbb3978b642a084bc4cc8988e56b3fdb9ac5c3b5cc2480af359354f7a094dbf9a23013623e547c920292f9b01c07d699e43297a04b5229e91a21961130              314 main/binary-amd64/Packages.gz

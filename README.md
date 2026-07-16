@@ -1,425 +1,549 @@
-# moniter
+# Monitor-Sys
 
-[![Rust](https://img.shields.io/badge/Rust-stable-orange.svg)](https://www.rust-lang.org/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-red.svg)]()
-[![Release](https://img.shields.io/github/v/release/trapoom/debian-apt-push)]()
+> A high-performance Linux System Monitor Terminal User Interface (TUI) written in Rust.
 
-A lightweight system monitoring utility written in Rust.
+![Rust](https://img.shields.io/badge/language-Rust-orange.svg)
+![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Linux-lightgrey.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-This repository hosts the signed APT repository, source code, and release artifacts for **moniter**.
+`monitor-sys` is a native Linux system monitoring application designed to provide real-time hardware telemetry through a modern terminal interface. Written entirely in Rust, the project emphasizes performance, reliability, predictable resource usage, and direct integration with Linux kernel interfaces.
 
-`moniter` is a Linux monitoring tool designed to display real-time CPU usage, RAM usage, and battery information on Debian and Ubuntu systems.
+Instead of relying on heavyweight frameworks or external monitoring services, `monitor-sys` collects information directly from the operating system using the standard virtual filesystems exposed by the Linux kernel. The result is a responsive monitoring application with minimal runtime overhead and a clean architecture that is suitable for both everyday system observation and long-running monitoring sessions.
+
+---
+
+# Table of Contents
+
+* Overview
+* Features
+* Architecture
+* System Data Collection
+* Terminal Rendering
+* Image Rendering Pipeline
+* Installation
+* Usage
+* Project Structure
+* Design Principles
+* Performance
+* Security
+* Roadmap
+* Contributing
+* License
+
+---
+
+# Overview
+
+The primary objective of `monitor-sys` is to demonstrate how a modern terminal application can provide comprehensive system monitoring while maintaining a lightweight runtime footprint.
+
+The application combines low-level Linux telemetry, efficient asynchronous event handling, and a structured rendering pipeline to deliver a responsive terminal dashboard without sacrificing maintainability or code quality.
+
+Core goals include:
+
+* Native Linux integration
+* Efficient resource utilization
+* Memory-safe implementation
+* Predictable performance
+* Clean software architecture
+* Extensible module organization
 
 ---
 
 # Features
 
-- Written in Rust
-- Real-time CPU usage monitoring
-- RAM usage monitoring
-- Battery status monitoring
-- Battery percentage display
-- Battery charging state detection
-- Lightweight resource usage
-- Native Linux support
-- Debian package distribution
-- Signed APT repository
+## Real-Time Hardware Telemetry
+
+The application continuously monitors essential system information by reading directly from Linux kernel interfaces.
+
+Collected information includes:
+
+* CPU utilization
+* Memory usage
+* System uptime
+* Temperature sensors
+* Battery information
+* Power supply status
 
 ---
 
-# Supported Platforms
+## Direct Kernel Integration
 
-## Operating Systems
+Rather than relying on external monitoring daemons or unnecessary abstraction layers, `monitor-sys` reads information directly from Linux virtual filesystems.
 
-### Debian
-
-- Debian 12 Bookworm
-- Debian 13 Trixie
-
-### Ubuntu
-
-- Ubuntu 22.04 LTS
-- Ubuntu 24.04 LTS
-
----
-
-## Architectures
-
-Supported architectures:
+Typical sources include:
 
 ```
-amd64
-arm64
+/proc/stat
+/proc/meminfo
+/sys/class/thermal
+/sys/class/power_supply
+```
+
+This approach minimizes dependencies while providing accurate and up-to-date system information.
+
+---
+
+## Battery Monitoring
+
+The power management subsystem automatically discovers battery devices exposed by the Linux kernel.
+
+Supported information includes:
+
+* Battery capacity
+* Charging status
+* Current voltage
+* Power source
+* Remaining energy
+* Health information (when available)
+
+Automatic device discovery allows the application to adapt to different hardware configurations without additional configuration.
+
+---
+
+## Interactive Command Interface
+
+The dashboard includes an integrated command interface that allows users to execute application-specific commands without leaving the monitoring environment.
+
+The command subsystem supports:
+
+* Interactive command execution
+* Command history
+* Input editing
+* Extensible command registration
+
+This architecture makes future feature expansion significantly easier.
+
+---
+
+## Terminal Rendering Engine
+
+Rendering is performed using a dedicated drawing layer built on top of Ratatui and Crossterm.
+
+The renderer provides:
+
+* Dynamic layouts
+* Live dashboard updates
+* Automatic screen resizing
+* Alternate screen management
+* Efficient redraw scheduling
+
+The terminal state is properly restored after application shutdown, ensuring that no artifacts remain in the user's console.
+
+---
+
+## Raw Image Rendering
+
+`monitor-sys` includes an experimental renderer capable of displaying raw image buffers inside the terminal.
+
+Supported input formats:
+
+```
+RGB
+
+RGBA
+```
+
+Expected dimensions:
+
+```
+512 × 512 pixels
+```
+
+The rendering pipeline transforms raw pixel buffers into terminal-compatible character representations, allowing image visualization without requiring native graphical capabilities.
+
+---
+
+# Architecture
+
+The project is organized around a modular architecture that separates hardware monitoring, event processing, rendering, and application state management.
+
+```
+                Linux Kernel
+
+        +-----------------------+
+        |  /proc    /sys        |
+        +-----------+-----------+
+                    |
+                    |
+                    v
+
+          Telemetry Collection Layer
+                    |
+                    |
+                    v
+
+             System State Model
+                    |
+                    |
+                    v
+
+          Application Controller
+                    |
+          +---------+---------+
+          |                   |
+          |                   |
+          v                   v
+
+     Event Handler      Rendering Engine
+          |                   |
+          +---------+---------+
+                    |
+                    v
+
+              Terminal Output
+```
+
+Each subsystem has a clearly defined responsibility, allowing the project to remain maintainable as additional functionality is introduced.
+
+---
+
+# Threading Model
+
+`monitor-sys` separates user interaction from telemetry updates to maintain a responsive interface during continuous monitoring.
+
+The architecture consists of two primary execution paths.
+
+## Event Processing
+
+Responsible for:
+
+* Keyboard events
+* Window resize events
+* User commands
+* Application control
+
+```
+Keyboard
+     |
+     v
+Event Listener
+     |
+     v
+Message Channel
+     |
+     v
+Main Application
+```
+
+---
+
+## Monitoring Loop
+
+Responsible for:
+
+* Reading kernel data
+* Parsing hardware information
+* Updating internal state
+* Triggering redraw operations
+
+```
+Linux Filesystem
+
+      |
+
+Telemetry Parser
+
+      |
+
+System State
+
+      |
+
+Renderer
+
+      |
+
+Display
+```
+
+Separating these responsibilities improves responsiveness while simplifying synchronization between components.
+
+---
+
+# System Data Collection
+
+The monitoring subsystem periodically reads kernel-provided information and converts it into strongly typed Rust structures.
+
+Typical workflow:
+
+```
+Linux Virtual Filesystem
+
+        |
+
+Read File
+
+        |
+
+Parse Raw Text
+
+        |
+
+Validate Values
+
+        |
+
+Update System State
+
+        |
+
+Render Dashboard
+```
+
+This design keeps parsing logic isolated from rendering logic, making both systems easier to maintain and test.
+
+---
+
+# Terminal Rendering
+
+Rendering is performed independently from telemetry collection.
+
+Each frame is generated from an immutable snapshot of the current application state.
+
+Advantages include:
+
+* Consistent rendering
+* Reduced flickering
+* Predictable updates
+* Simplified state management
+
+Only the current application state is required to produce a frame, allowing rendering to remain deterministic and independent of hardware access.
+
+---
+
+# Image Rendering Pipeline
+
+The raw image renderer accepts uncompressed RGB or RGBA byte buffers.
+
+Pipeline overview:
+
+```
+Raw Image
+
+      |
+
+Pixel Decoder
+
+      |
+
+Color Conversion
+
+      |
+
+Intensity Mapping
+
+      |
+
+Character Selection
+
+      |
+
+Terminal Frame
+
+      |
+
+Display
+```
+
+Example conversion using Python:
+
+```python
+from PIL import Image
+
+image = (
+    Image.open("image.png")
+    .convert("RGBA")
+    .resize((512, 512))
+)
+
+with open("image.raw", "wb") as file:
+    file.write(image.tobytes())
+```
+
+Load the generated file from the command interface:
+
+```text
+image load /path/to/image.raw
 ```
 
 ---
 
 # Installation
 
-## Install from APT Repository
+## Package Installation
 
-### Step 1 - Add repository
-
-```bash
-curl -fsSL https://github.com/trapoom/moniter-sys/setup.sh | sudo bash
-```
-
-The installer will:
-
-- Download repository signing key
-- Install GPG keyring:
-
-```
-/usr/share/keyrings/traphumi-archive-keyring.gpg
-```
-
-- Create APT source:
-
-```
-/etc/apt/sources.list.d/traphumi.list
-```
-
-- Run:
+For Debian-based distributions:
 
 ```bash
-apt update
+sudo apt update
+sudo apt install monitor-sys
 ```
 
 ---
 
-### Step 2 - Install moniter
+## Building From Source
+
+Clone the repository:
 
 ```bash
-sudo apt install moniter
-```
+git clone https://github.com/trapoom/moniter-sys.git
 
----
-
-# Repository Information
-
-APT Repository:
-
-```
-https://github.com/trapoom/moniter-sys/
-```
-
-Distribution:
-
-```
-stable
-```
-
-Component:
-
-```
-main
-```
-
----
-
-# Repository Signing Key
-
-The repository packages are signed using GPG.
-
-Fingerprint:
-
-```
-
-```
-
-Verify the key:
-
-```bash
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-=j7MY
------END PGP PUBLIC KEY BLOCK-----
-```
-# Build From Source
-
-## Requirements
-
-- Rust stable
-- Cargo
-- Git
-
-Install Rust:
-
-```bash
-curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
-```
-
----
-
-## Clone
-
-```bash
-git clone https://github.com/trapoom/moniter-sys/.git
 cd moniter-sys
 ```
 
----
-
-## Build
-
-Development build:
-
-```bash
-cargo build
-```
-
-Release build:
+Build the release binary:
 
 ```bash
 cargo build --release
 ```
 
-Binary:
-
-```
-target/release/moniter
-```
-
-Run:
+Run the application:
 
 ```bash
-./target/release/moniter
+./target/release/monitor
 ```
 
 ---
 
-# Example Output
+# Usage
 
-Example:
+Start the application:
 
+```bash
+monitor
 ```
-System Monitor
 
-CPU        7%
-Memory     1.3G / 8G
-Disk       41%
-Network    13 MB/s
-Temperature 42 C
-```
+Once running, the dashboard continuously updates system information while accepting interactive commands through the integrated command interface.
 
 ---
 
 # Project Structure
 
 ```
-.
+monitor-sys/
+
 ├── src/
 │   ├── main.rs
-│   └── modules/
+│   ├── app.rs
+│   ├── sysinfo.rs
+│   ├── renderer.rs
+│   ├── commands.rs
+│   ├── events.rs
+│   └── ui.rs
 │
 ├── Cargo.toml
 ├── Cargo.lock
-├── debian/
-│
-├── setup.sh
 ├── LICENSE
-├── README.md
-└── CHANGELOG.md
+└── README.md
 ```
+
+Typical module responsibilities:
+
+| Module        | Responsibility                |
+| ------------- | ----------------------------- |
+| `main.rs`     | Application entry point       |
+| `app.rs`      | Global application state      |
+| `sysinfo.rs`  | Hardware telemetry collection |
+| `renderer.rs` | Terminal rendering            |
+| `commands.rs` | Command processing            |
+| `events.rs`   | Event handling                |
+| `ui.rs`       | Layout construction           |
 
 ---
 
-# Configuration
+# Design Principles
 
-Currently no configuration file is required.
+The project is built around several fundamental principles.
 
-Future versions may support:
+## Simplicity
 
-```
-~/.config/moniter/config.toml
-```
+Each module should have a single, clearly defined responsibility.
 
----
+## Performance
 
-# Package Management
+Avoid unnecessary allocations, excessive copying, and redundant processing whenever practical.
 
-Update repository information:
+## Reliability
 
-```bash
-sudo apt update
-```
+Rust's ownership and type systems are used extensively to reduce runtime errors and eliminate common classes of memory bugs.
 
-Upgrade:
+## Maintainability
 
-```bash
-sudo apt upgrade
-```
+The project favors modular organization and descriptive code over unnecessary abstraction.
+
+## Extensibility
+
+New telemetry sources, rendering widgets, and commands should be implementable without requiring significant architectural changes.
 
 ---
 
-# Uninstall
+# Performance
 
-Remove the application:
+Several design decisions contribute to the application's efficiency.
 
-```bash
-sudo apt remove moniter
-```
+* Direct kernel data collection
+* Low-overhead parsing
+* Efficient terminal rendering
+* Controlled memory allocation
+* Minimal dependency footprint
+* Message-passing concurrency
+* Native compiled performance
 
-Remove repository:
-
-```bash
-sudo rm /etc/apt/sources.list.d/traphumi.list
-sudo rm /usr/share/keyrings/traphumi-archive-keyring.gpg
-sudo apt update
-```
-
----
-
-# Development
-
-Before submitting changes, run:
-
-Format:
-
-```bash
-cargo fmt
-```
-
-Test:
-
-```bash
-cargo test
-```
-
-Lint:
-
-```bash
-cargo clippy --all-targets --all-features -- -D warnings
-```
-
----
-
-# Contributing
-
-Pull requests are welcome.
-
-Before submitting:
-
-```bash
-cargo fmt
-cargo test
-cargo clippy
-```
-
-Please describe your changes clearly.
+The application is intended to remain lightweight even during extended monitoring sessions.
 
 ---
 
 # Security
 
-If you discover a security vulnerability, please report it privately.
+`monitor-sys` does not require elevated privileges for normal operation.
 
-Do not open a public issue containing sensitive information.
+The application:
 
-Security reports can be submitted through GitHub Security Advisories.
+* Reads only local system information
+* Does not transmit telemetry externally
+* Does not install background services
+* Does not modify operating system configuration
+
+All monitored information remains on the local machine.
 
 ---
 
 # Roadmap
 
-Future plans:
+Future development plans include:
 
-- ARM builds
-- Automatic update checker
-- Homebrew support
-- Snap package
-- Flatpak package
-- Configuration file support
-- More system metrics
+* GPU monitoring
+* Network bandwidth visualization
+* Disk I/O statistics
+* Process management interface
+* Configurable dashboard layouts
+* Theme customization
+* Plugin architecture
+* Remote monitoring support
+* Exportable metrics
+* Historical data visualization
 
 ---
 
-# Changelog
+# Contributing
 
-See:
+Contributions are welcome.
 
-```
-CHANGELOG.md
-```
+To contribute:
 
-Current release:
+1. Fork the repository.
+2. Create a feature branch.
+3. Implement the proposed changes.
+4. Ensure the project builds successfully.
+5. Submit a pull request with a clear description of the modifications.
 
-```
-1.0.0
-```
+Issues, feature requests, documentation improvements, and code contributions are all appreciated.
 
 ---
 
 # License
 
-This project is licensed under the MIT License.
+This project is distributed under the MIT License.
 
-See:
-
-```
-LICENSE
-```
-
-Cargo.toml:
-
-```toml
-license = "MIT"
-```
-
----
-
-# Author
-
-trapoom
-
-GitHub:
-
-https://github.com/trapoom
+See the `LICENSE` file for complete license information.
