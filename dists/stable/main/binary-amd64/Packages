@@ -2,11 +2,11 @@ Package: moniter
 Version: 1.0.1
 Architecture: amd64
 Maintainer: traphumi trapoomyoyojojo@gmail.com
-Filename: pool/main/m/moniter/moniter_1.0.1_amd64.deb
-Size: 221620
-MD5sum: c4877622e2c5460021607d53ced93159
-SHA1: 5aafe7efddd73b7696298ec50d3bed37063bb2f8
-SHA256: 57a0d85e375e12e2ce176a462e042a2554d68c57776a1d0975e199dd983eb216
+Filename: pool/main/moniter_1.0.1_amd64.deb
+Size: 394432
+MD5sum: 8ca5f9789b0f14938cdbd9068f1bcc23
+SHA1: f9c4230db29332e1fedadd9cb5128b2d101f64a9
+SHA256: ffef0f6f01e9ff54ae4a523ac7958edd629f21fcd7e0f190398048aacd3ec22c
 Section: utils
 Priority: optional
 Description: System Monitor TUI written in Rust by traphumi.

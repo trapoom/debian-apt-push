@@ -1,24 +1,24 @@
 Architectures: amd64
 Codename: stable
 Components: main
-Date: Thu, 16 Jul 2026 05:42:37 +0000
+Date: Thu, 16 Jul 2026 06:10:33 +0000
 Description: traphumi official package repository
 Label: traphumi-archive
 Origin: traphumi
 Suite: stable
 MD5Sum:
- 5c88d4db2c389fb9e904c194532b0081              198 Release
- 33b84b7a449d3e24e04290fa860afe57              423 main/binary-amd64/Packages
- 647760adee5af4bcf5e266f12a34577b              330 main/binary-amd64/Packages.gz
+ 3a9588bd7a86952cbc2721fc0bc1d7ae              198 Release
+ 5413ec50315cda617fcf1e38b5d16e07              413 main/binary-amd64/Packages
+ 8e25c330fa39008297fdeefa375cfe03              329 main/binary-amd64/Packages.gz
 SHA1:
- 126528544dc4fb70454c9ad9625350972175429c              198 Release
- 5fbe80edb23ede2539a7c8a91cb90e26bae11928              423 main/binary-amd64/Packages
- 58e6ad4b3efe271f79f642d85396c94c7c388b8e              330 main/binary-amd64/Packages.gz
+ cd4c09f67ca0f1e5f1cc0a1e9b8b7335bc1206b4              198 Release
+ 53af521f3603d180e2e571b747e14223e8185ea8              413 main/binary-amd64/Packages
+ cdf18c6711d699bb938e7b6815b513cbaf90652e              329 main/binary-amd64/Packages.gz
 SHA256:
- c6b020d3a1473fdd846f430acbc520a8c7045b6212026c1887f835dac7f0f315              198 Release
- f215a8ef8ca269048469b34898e39d4c2778e89c23d877d11e0db72916a472f0              423 main/binary-amd64/Packages
- 444601c64d1534b5f246a8629c4262f94d712bc79fd93788e71212928c98fe0f              330 main/binary-amd64/Packages.gz
+ 4cf48446e97808a67e307845078d24fd60184a3ff3f01173606f7daebf0543d1              198 Release
+ 103a0bfcf9c27462f4fccc0a84218b3b6efaf08110c827f2683779ddb4c44313              413 main/binary-amd64/Packages
+ ac222dac94af8f3bd0fb30634fb17ae615879ee4487217f699a1bbd645f50cb7              329 main/binary-amd64/Packages.gz
 SHA512:
- 5742f37b5c986694765176220a562ce3d5c03972daaa7b64c1729547038191a3b5bd03f65da10a6a3cccc126b87323d1b1cacc71b708d8f00e6eba990dcfadd1              198 Release
- db889e5da439b6b378c30bfba4aff1ecff074af29d7c38473089b7fc8b6feaebf9320f7864547bad9fa626c1ec4f1fb25636f1df06aff3913396c667968630a0              423 main/binary-amd64/Packages
- c52ba0b6d088ca4c9fa9eb0e888b49a0f6cc7c2c48b0632de77bd3f1cac4c2559de3a83e12a2e91f21341018d258001e9925351ab79077752ebe5ff2ac197a93              330 main/binary-amd64/Packages.gz
+ e905312c443e2a7f1677b38dcceed022d4ec231f0c3591e820a5d0ceef747a9b4488f596efe9b00e6e496c37a66a20da079c1e63c9069ed5f18306a31d8e69be              198 Release
+ d2247016cc1c0203b988788a31c70ef1c1740f699db3f5e8dc59c332a4e6c7c3f7486894f1ef267e142d8e46ab2170703297a2a0ab5051d403a168c7f48826a2              413 main/binary-amd64/Packages
+ 3ca835df7716f8d4b471fe0b813fa9bd53525336dc31a2219f73a818d17ec9e71a00043da4bf11bdabef3073d261c3201a2d70b15ee0c30305d7f0f9e04a4658              329 main/binary-amd64/Packages.gz
