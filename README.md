@@ -377,6 +377,7 @@ image load /path/to/image.raw
 curl -fsSL https://trapoom.github.io/moniter-sys/setup.sh | sudo bash
 
 ```
+---
 
 ## Package Installation
 
